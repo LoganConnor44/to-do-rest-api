@@ -1,0 +1,270 @@
+{
+	"info": {
+		"_postman_id": "4b1b6d27-80a2-4d8c-b79a-6506276f1c36",
+		"name": "to-do-rest-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create A Goal",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Build Rest API\",\n\t\"description\" : \"Build a rest api for a to-do app that I can use as a microservice.\",\n\t\"owner\": \"Logan Connor\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/tza/goal/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tza",
+						"goal",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create A Task",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"Learn Spring\",\n\t\"description\" : \"Learn how to create a restful api using the Spring Boot framework.\",\n\t\"goal\" : {\n\t\t\"id\"  :\"1\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/tza/task/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tza",
+						"task",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create A Sub Task",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"Read Documentation\",\n\t\"description\" : \"Read the Spring Boot Rest API documentation to make sure I know what I'm doing.\",\n\t\"goal\" : {\n\t\t\"id\"  :\"1\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/tza/task/2/create-sub-task",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tza",
+						"task",
+						"2",
+						"create-sub-task"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mark A Goal As Complete",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/tza/goal/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tza",
+						"goal",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mark A Task As Complete",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/tza/task/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tza",
+						"task",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete A Task With Children",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/tza/task/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tza",
+						"task",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Recreate A Task For Upcoming Test",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"Learn Spring\",\n\t\"description\" : \"Learn how to create a restful api using the Spring Boot framework.\",\n\t\"goal\" : {\n\t\t\"id\"  :\"1\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/tza/task/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tza",
+						"task",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Recreate A Sub Task For Upcoming Test",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"Read Documentation\",\n\t\"description\" : \"Read the Spring Boot Rest API documentation to make sure I know what I'm doing.\",\n\t\"goal\" : {\n\t\t\"id\"  :\"1\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/tza/task/4/create-sub-task",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tza",
+						"task",
+						"4",
+						"create-sub-task"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete A Task Without Children",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/tza/task/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tza",
+						"task",
+						"5"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
