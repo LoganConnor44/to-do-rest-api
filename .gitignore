@@ -1,0 +1,6 @@
+# ignore intellij files and directories
+.idea/*
+*.iml
+
+# ignore the packaged files directory
+target/*
