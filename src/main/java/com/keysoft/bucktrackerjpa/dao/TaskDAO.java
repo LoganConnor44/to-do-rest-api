@@ -5,11 +5,14 @@ import com.keysoft.bucktrackerjpa.helpers.Status;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import com.keysoft.bucktrackerjpa.helpers.Convenience;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -80,21 +83,27 @@ public class TaskDAO implements ITaskDAO {
 
     /**
      * Deletes a task with the id of the passed in value.
+     * If there are any children, do not orphan them.
      *
      * @param taskId The id of a task to delete.
      */
     @Override
     public void deleteTask(int taskId) {
-        // you are checking if a parent task exists for any other tasks
-        String jpql = "FROM Task AS TA WHERE TA.name = ? AND GO.owner = ?";
-        int count = entityManager
-                .createQuery(jpql)
-                .setParameter(0, name)
-                .setParameter(1, owner)
-                .getResultList()
-                .size();
-        return count > 0;
+        String jpql = "SELECT SUB.PARENT_TASK_FK " +
+                "FROM TASKS TA " +
+                "LEFT OUTER JOIN TASKS_SUBTASKS SUB " +
+                "ON TA.TASK_ID = SUB.CHILD_SUBTASK_FK " +
+                "WHERE TA.TASK_ID = :taskId";
+
+        @SuppressWarnings("unchecked")
+        List<Integer> parentIds = (List<Integer>) entityManager.createNativeQuery(jpql)
+                .setParameter("taskId", taskId)
+                .getResultList();
+        if (!Convenience.isListOfNulls(parentIds)) {
+            for (Integer id : parentIds) {
+                entityManager.remove(getTaskById(id));
+            }
+        }
         entityManager.remove(getTaskById(taskId));
-        entityManager.find()
     }
 }
