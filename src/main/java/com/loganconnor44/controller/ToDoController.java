@@ -21,6 +21,35 @@ public class ToDoController {
     @Autowired
     private IGoalService goalService;
 
+    @PostMapping("/goal")
+    public ResponseEntity<Void> addGoal(@RequestBody Goal goal, UriComponentsBuilder builder) {
+        boolean flag = goalService.addGoal(goal);
+        if (!flag) {
+            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(builder.path("/goal/{id}").buildAndExpand(goal.getId()).toUri());
+        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/goal/{goalId}")
+    public ResponseEntity<Goal> getGoalById(@PathVariable("goalId") Integer goalId) {
+        Goal goal = goalService.getGoalById(goalId);
+        return new ResponseEntity<Goal>(goal, HttpStatus.OK);
+    }
+
+    @PutMapping("/goal/{goalId}")
+    public ResponseEntity<Goal> markGoalAsComplete(@PathVariable("goalId") Integer goalId) {
+        goalService.markGoalAsComplete(goalId);
+        return new ResponseEntity<Goal>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/goal/{goalId}")
+    public ResponseEntity<Void> deleteGoal(@PathVariable("goalId") Integer goalId) {
+        goalService.deleteGoal(goalId);
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
+
     @PostMapping("/task")
     public ResponseEntity<Void> addTask(@RequestBody Task task, UriComponentsBuilder builder) {
         boolean flag = taskService.addTask(task);
@@ -58,35 +87,6 @@ public class ToDoController {
     @DeleteMapping("/task/{taskId}")
     public ResponseEntity<Void> deleteTask(@PathVariable("taskId") Integer taskId) {
         taskService.deleteTask(taskId);
-        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-    }
-
-    @PostMapping("/goal")
-    public ResponseEntity<Void> addGoal(@RequestBody Goal goal, UriComponentsBuilder builder) {
-        boolean flag = goalService.addGoal(goal);
-        if (!flag) {
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-        }
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("/goal/{id}").buildAndExpand(goal.getId()).toUri());
-        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
-    }
-
-    @GetMapping("/goal/{goalId}")
-    public ResponseEntity<Goal> getGoalById(@PathVariable("goalId") Integer goalId) {
-        Goal goal = goalService.getGoalById(goalId);
-        return new ResponseEntity<Goal>(goal, HttpStatus.OK);
-    }
-
-    @PutMapping("/goal/{goalId}")
-    public ResponseEntity<Goal> markGoalAsComplete(@PathVariable("goalId") Integer goalId) {
-        goalService.markGoalAsComplete(goalId);
-        return new ResponseEntity<Goal>(HttpStatus.OK);
-    }
-
-    @DeleteMapping("/goal/{goalId}")
-    public ResponseEntity<Void> deleteGoal(@PathVariable("goalId") Integer goalId) {
-        goalService.deleteGoal(goalId);
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 }
