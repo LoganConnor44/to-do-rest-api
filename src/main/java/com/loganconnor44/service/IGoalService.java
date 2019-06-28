@@ -1,6 +1,6 @@
-package com.keysoft.bucktrackerjpa.service;
+package com.loganconnor44.service;
 
-import com.keysoft.bucktrackerjpa.entity.Goal;
+import com.loganconnor44.entity.Goal;
 
 public interface IGoalService {
     boolean addGoal(Goal goal);

@@ -1,9 +1,9 @@
-package com.keysoft.bucktrackerjpa.dao;
+package com.loganconnor44.dao;
 
-import com.keysoft.bucktrackerjpa.entity.Task;
-import com.keysoft.bucktrackerjpa.helpers.Status;
+import com.loganconnor44.entity.Task;
+import com.loganconnor44.helpers.Status;
 import org.springframework.stereotype.Repository;
-import com.keysoft.bucktrackerjpa.helpers.Convenience;
+import com.loganconnor44.helpers.Convenience;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;

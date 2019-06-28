@@ -1,6 +1,6 @@
-package com.keysoft.bucktrackerjpa.dao;
+package com.loganconnor44.dao;
 
-import com.keysoft.bucktrackerjpa.entity.Goal;
+import com.loganconnor44.entity.Goal;
 
 public interface IGoalDAO {
     void addGoal(Goal goal);

@@ -1,4 +1,4 @@
-package com.keysoft.bucktrackerjpa;
+package com.loganconnor44;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

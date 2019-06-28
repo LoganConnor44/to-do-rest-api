@@ -1,4 +1,4 @@
-package com.keysoft.bucktrackerjpa.controller;
+package com.loganconnor44.controller;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

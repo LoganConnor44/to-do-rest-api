@@ -1,4 +1,4 @@
-package com.keysoft.bucktrackerjpa.config;
+package com.loganconnor44.config;
 
 import org.h2.server.web.WebServlet;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;

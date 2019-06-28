@@ -1,56 +1,44 @@
-package com.keysoft.bucktrackerjpa.entity;
+package com.loganconnor44.entity;
 
-import com.keysoft.bucktrackerjpa.helpers.Status;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import com.loganconnor44.helpers.Status;
 import java.time.Instant;
+import java.util.ArrayList;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "tasks")
-public class Task {
+@Table(name = "goals")
+public class Goal {
     /**
-     * A unique identifier for a task.
+     * A unique identifier for a goal.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "task_id", nullable = false)
+    @Column(name = "goal_id", nullable = false)
     private Integer id;
 
     /**
-     * The associated / parent goal of the current task.
-     */
-    @ManyToOne
-    @JoinTable(
-            name = "goals_tasks",
-            joinColumns = @JoinColumn(name = "task_fk"),
-            inverseJoinColumns = @JoinColumn(name = "goal_fk")
-    )
-    private Goal goal;
-
-    /**
-     * The name of the task.
+     * The name of the goal.
      */
     @Column(name = "name", nullable = false)
     private String name;
 
     /**
-     * The description of the task.
+     * The description of the goal.
      */
     @Column(length = 2000)
     private String description;
 
     /**
-     * The subtasks that are associated with the current task.
+     * The owner of the goal.
      */
-    @ManyToOne()
-    @JoinTable(
-            name = "tasks_subtasks",
-            joinColumns = @JoinColumn(name = "parent_task_fk"),
-            inverseJoinColumns = @JoinColumn(name = "child_subtask_fk")
-    )
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Task parentTask;
+    @Column(name = "owner", nullable = false)
+    private String owner;
+
+    /**
+     * The status of the current task.
+     */
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.ACTIVE;
 
     /**
      * A time stamp of the last time this object was modified.
@@ -64,31 +52,22 @@ public class Task {
     @Column(name = "created", nullable = false)
     private Instant created;
 
-    /**
-     * The status of the current task.
-     */
-    @Enumerated(EnumType.STRING)
-    private Status status = Status.ACTIVE;
-
-    public Task() {
+    public Goal() {
         this.lastModified = Instant.now();
         this.created = Instant.now();
     }
 
-    public Task(
+    public Goal(
             int id,
             String name,
             String description,
-            Goal goal,
-            Task parentTask,
-            Status status
+            String owner,
+            ArrayList goals
     ) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.goal = goal;
-        this.parentTask = parentTask;
-        this.status = status;
+        this.owner = owner;
         this.lastModified = Instant.now();
         this.created = Instant.now();
     }
@@ -117,20 +96,12 @@ public class Task {
         this.description = description;
     }
 
-    public Goal getGoal() {
-        return this.goal;
+    public String getOwner() {
+        return this.owner;
     }
 
-    public void setGoal(Goal goal) {
-        this.goal = goal;
-    }
-
-    public Task getParentTask() {
-        return this.parentTask;
-    }
-
-    public void setParentTask(Task parentTask) {
-        this.parentTask = parentTask;
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 
     public Status getStatus() {

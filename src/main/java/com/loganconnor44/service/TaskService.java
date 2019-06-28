@@ -1,7 +1,7 @@
-package com.keysoft.bucktrackerjpa.service;
+package com.loganconnor44.service;
 
-import com.keysoft.bucktrackerjpa.dao.ITaskDAO;
-import com.keysoft.bucktrackerjpa.entity.Task;
+import com.loganconnor44.dao.ITaskDAO;
+import com.loganconnor44.entity.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

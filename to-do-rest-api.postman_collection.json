@@ -21,14 +21,14 @@
 					"raw": "{\n\t\"name\": \"Build Rest API\",\n\t\"description\" : \"Build a rest api for a to-do app that I can use as a microservice.\",\n\t\"owner\": \"Logan Connor\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/tza/goal/",
+					"raw": "http://localhost:8080/to-do/goal/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"tza",
+						"to-do",
 						"goal",
 						""
 					]
@@ -52,14 +52,14 @@
 					"raw": "{\n\t\"name\" : \"Learn Spring\",\n\t\"description\" : \"Learn how to create a restful api using the Spring Boot framework.\",\n\t\"goal\" : {\n\t\t\"id\"  :\"1\"\n\t}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/tza/task/",
+					"raw": "http://localhost:8080/to-do/task/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"tza",
+						"to-do",
 						"task",
 						""
 					]
@@ -82,14 +82,14 @@
 					"raw": "{\n\t\"name\" : \"Read Documentation\",\n\t\"description\" : \"Read the Spring Boot Rest API documentation to make sure I know what I'm doing.\",\n\t\"goal\" : {\n\t\t\"id\"  :\"1\"\n\t}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/tza/task/2/create-sub-task",
+					"raw": "http://localhost:8080/to-do/task/2/create-sub-task",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"tza",
+						"to-do",
 						"task",
 						"2",
 						"create-sub-task"
@@ -110,14 +110,14 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/tza/goal/1",
+					"raw": "http://localhost:8080/to-do/goal/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"tza",
+						"to-do",
 						"goal",
 						"1"
 					]
@@ -137,14 +137,14 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/tza/task/3",
+					"raw": "http://localhost:8080/to-do/task/3",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"tza",
+						"to-do",
 						"task",
 						"3"
 					]
@@ -163,14 +163,14 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/tza/task/2",
+					"raw": "http://localhost:8080/to-do/task/2",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"tza",
+						"to-do",
 						"task",
 						"2"
 					]
@@ -185,8 +185,8 @@
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
+						"type": "text",
+						"value": "application/json"
 					}
 				],
 				"body": {
@@ -194,14 +194,14 @@
 					"raw": "{\n\t\"name\" : \"Learn Spring\",\n\t\"description\" : \"Learn how to create a restful api using the Spring Boot framework.\",\n\t\"goal\" : {\n\t\t\"id\"  :\"1\"\n\t}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/tza/task/",
+					"raw": "http://localhost:8080/to-do/task/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"tza",
+						"to-do",
 						"task",
 						""
 					]
@@ -224,14 +224,14 @@
 					"raw": "{\n\t\"name\" : \"Read Documentation\",\n\t\"description\" : \"Read the Spring Boot Rest API documentation to make sure I know what I'm doing.\",\n\t\"goal\" : {\n\t\t\"id\"  :\"1\"\n\t}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/tza/task/4/create-sub-task",
+					"raw": "http://localhost:8080/to-do/task/4/create-sub-task",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"tza",
+						"to-do",
 						"task",
 						"4",
 						"create-sub-task"
@@ -251,14 +251,14 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/tza/task/5",
+					"raw": "http://localhost:8080/to-do/task/5",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"tza",
+						"to-do",
 						"task",
 						"5"
 					]

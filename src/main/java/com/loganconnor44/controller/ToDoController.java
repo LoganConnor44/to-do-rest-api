@@ -1,9 +1,9 @@
-package com.keysoft.bucktrackerjpa.controller;
+package com.loganconnor44.controller;
 
-import com.keysoft.bucktrackerjpa.entity.Task;
-import com.keysoft.bucktrackerjpa.entity.Goal;
-import com.keysoft.bucktrackerjpa.service.ITaskService;
-import com.keysoft.bucktrackerjpa.service.IGoalService;
+import com.loganconnor44.entity.Task;
+import com.loganconnor44.entity.Goal;
+import com.loganconnor44.service.ITaskService;
+import com.loganconnor44.service.IGoalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
-@RequestMapping("/tza")
-public class TrackzillaController {
+@RequestMapping("/to-do")
+public class ToDoController {
 
     @Autowired
     private ITaskService taskService;

@@ -1,7 +1,7 @@
-package com.keysoft.bucktrackerjpa.dao;
+package com.loganconnor44.dao;
 
-import com.keysoft.bucktrackerjpa.entity.Goal;
-import com.keysoft.bucktrackerjpa.helpers.Status;
+import com.loganconnor44.entity.Goal;
+import com.loganconnor44.helpers.Status;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

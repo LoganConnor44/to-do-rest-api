@@ -1,9 +1,9 @@
-package com.keysoft.bucktrackerjpa.service;
+package com.loganconnor44.dao;
 
-import com.keysoft.bucktrackerjpa.entity.Task;
+import com.loganconnor44.entity.Task;
 
-public interface ITaskService {
-    boolean addTask(Task task);
+public interface ITaskDAO {
+    void addTask(Task task);
 
     Task getTaskById(int taskId);
 
