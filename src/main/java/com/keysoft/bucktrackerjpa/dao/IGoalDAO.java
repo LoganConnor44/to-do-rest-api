@@ -1,7 +1,6 @@
 package com.keysoft.bucktrackerjpa.dao;
 
 import com.keysoft.bucktrackerjpa.entity.Goal;
-import java.util.List;
 
 public interface IGoalDAO {
     void addGoal(Goal goal);

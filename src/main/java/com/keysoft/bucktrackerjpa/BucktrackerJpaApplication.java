@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan("com.keysoft")
 public class BucktrackerJpaApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(BucktrackerJpaApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(BucktrackerJpaApplication.class, args);
+    }
 }

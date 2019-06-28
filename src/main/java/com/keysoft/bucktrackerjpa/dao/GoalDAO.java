@@ -2,16 +2,11 @@ package com.keysoft.bucktrackerjpa.dao;
 
 import com.keysoft.bucktrackerjpa.entity.Goal;
 import com.keysoft.bucktrackerjpa.helpers.Status;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.util.List;
+import java.time.Instant;
 
 @Transactional
 @Repository
@@ -92,5 +87,6 @@ public class GoalDAO implements IGoalDAO {
     public void markGoalAsComplete(Integer goalId) {
         Goal goal = getGoalById(goalId);
         goal.setStatus(Status.COMPLETED);
+        goal.setLastModified(Instant.now());
     }
 }

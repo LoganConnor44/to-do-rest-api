@@ -3,9 +3,7 @@ package com.keysoft.bucktrackerjpa.entity;
 import com.keysoft.bucktrackerjpa.helpers.Status;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.*;
-import static javax.persistence.CascadeType.PERSIST;
 
 @Entity
 @Table(name = "goals")

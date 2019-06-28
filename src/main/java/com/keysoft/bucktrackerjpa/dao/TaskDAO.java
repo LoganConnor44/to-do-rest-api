@@ -2,18 +2,12 @@ package com.keysoft.bucktrackerjpa.dao;
 
 import com.keysoft.bucktrackerjpa.entity.Task;
 import com.keysoft.bucktrackerjpa.helpers.Status;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import com.keysoft.bucktrackerjpa.helpers.Convenience;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.transaction.Transactional;
+import java.time.Instant;
 import java.util.List;
 
 @Transactional
@@ -79,6 +73,7 @@ public class TaskDAO implements ITaskDAO {
     public void markTaskAsComplete(Integer taskId) {
         Task task = getTaskById(taskId);
         task.setStatus(Status.COMPLETED);
+        task.setLastModified(Instant.now());
     }
 
     /**
