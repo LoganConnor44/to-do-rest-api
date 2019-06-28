@@ -48,7 +48,7 @@ public class ToDoControllerTest {
     }
 
     @Test
-    public void addGoal() throws Exception {
+    public void addGoalTest() throws Exception {
         MvcResult result = createGoal();
 
         MockHttpServletResponse response = result.getResponse();
@@ -66,7 +66,7 @@ public class ToDoControllerTest {
     }
 
     @Test
-    public void retrieveGoalStatus() throws Exception {
+    public void retrieveGoalTest() throws Exception {
         this.createGoal();
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .get("/to-do/goal/1")
@@ -89,8 +89,8 @@ public class ToDoControllerTest {
      * @throws Exception
      */
     @Test
-    public void updateGoalAsComplete() throws Exception {
-        this.addGoal();
+    public void updateGoalAsCompleteTest() throws Exception {
+        this.addGoalTest();
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .put("/to-do/goal/1")
                 .accept(MediaType.APPLICATION_JSON)
@@ -110,13 +110,13 @@ public class ToDoControllerTest {
     }
 
     /**
-     * UNDER CONSTRUCTION
+     * 
      *
      * @throws Exception
      */
     @Test
     public void deleteGoal() throws Exception {
-        this.addGoal();
+        this.createGoal();
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .delete("/to-do/goal/1")
                 .accept(MediaType.APPLICATION_JSON)
@@ -125,7 +125,6 @@ public class ToDoControllerTest {
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
         MockHttpServletResponse response = result.getResponse();
 
-        //Assert that the return status is 204 No Content
         assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
     }
 }
