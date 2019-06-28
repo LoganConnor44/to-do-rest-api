@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 //Configuration for the H2 In Memory Database Console
 @Configuration
-public class WebConfiguration {
+public class WebConfig {
     @Bean
     ServletRegistrationBean h2servletRegistration() {
         ServletRegistrationBean registrationBean = new ServletRegistrationBean(new WebServlet());
