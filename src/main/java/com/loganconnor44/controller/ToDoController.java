@@ -72,9 +72,21 @@ public class ToDoController {
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
 
+    @GetMapping("/goal/{goalId}")
+    public ResponseEntity<Goal> getGoalById(@PathVariable("goalId") Integer goalId) {
+        Goal goal = goalService.getGoalById(goalId);
+        return new ResponseEntity<Goal>(goal, HttpStatus.OK);
+    }
+
     @PutMapping("/goal/{goalId}")
     public ResponseEntity<Goal> markGoalAsComplete(@PathVariable("goalId") Integer goalId) {
         goalService.markGoalAsComplete(goalId);
         return new ResponseEntity<Goal>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/goal/{goalId}")
+    public ResponseEntity<Void> deleteGoal(@PathVariable("goalId") Integer goalId) {
+        goalService.deleteGoal(goalId);
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 }
