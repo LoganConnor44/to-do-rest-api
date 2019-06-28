@@ -1,16 +1,19 @@
 package com.loganconnor44.dao;
 
 import com.loganconnor44.entity.Goal;
+import com.loganconnor44.helpers.Convenience;
 import com.loganconnor44.helpers.Status;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.time.Instant;
+import java.util.List;
 
 @Transactional
 @Repository
 public class GoalDAO implements IGoalDAO {
+
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -75,7 +78,34 @@ public class GoalDAO implements IGoalDAO {
      */
     @Override
     public void deleteGoal(int goalId) {
+        String jpql = "SELECT TASK_FK " +
+                "FROM GOALS_TASKS " +
+                "WHERE GOAL_FK = :goalId";
+
+        @SuppressWarnings("unchecked")
+        List<Integer> childTaskIds = (List<Integer>) entityManager.createNativeQuery(jpql)
+                .setParameter("goalId", goalId)
+                .getResultList();
+        if (!Convenience.isListOfNulls(childTaskIds)) {
+            for (Integer id : childTaskIds) {
+                TaskDAO taskDao = new TaskDAO();
+                taskDao.deleteTask(id);
+            }
+        }
         entityManager.remove(getGoalById(goalId));
+    }
+
+    @Override
+    public List<Integer> getChildrenTasks(Integer goalId) {
+        String jpql = "SELECT TASK_FK " +
+                "FROM GOALS_TASKS " +
+                "WHERE GOAL_FK = :goalId";
+
+        @SuppressWarnings("unchecked")
+        List<Integer> childTaskIds = (List<Integer>) entityManager.createNativeQuery(jpql)
+                .setParameter("goalId", goalId)
+                .getResultList();
+        return childTaskIds;
     }
 
     /**
