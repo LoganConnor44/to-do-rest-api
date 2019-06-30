@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc(secure = false)
-public class ToDoControllerTest {
+public class GoalControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -114,7 +114,7 @@ public class ToDoControllerTest {
      * @throws Exception
      */
     @Test
-    public void deleteGoal() throws Exception {
+    public void deleteGoalWithNoTasks() throws Exception {
         this.createGoal();
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .delete("/to-do/goal/1")
