@@ -58,13 +58,10 @@ public class Goal {
     }
 
     public Goal(
-            int id,
             String name,
             String description,
-            String owner,
-            ArrayList goals
+            String owner
     ) {
-        this.id = id;
         this.name = name;
         this.description = description;
         this.owner = owner;
