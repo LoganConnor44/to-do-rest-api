@@ -294,7 +294,7 @@
 			"response": []
 		},
 		{
-			"name": "Delete A Goal",
+			"name": "Delete A Goal With Children",
 			"request": {
 				"method": "DELETE",
 				"header": [
@@ -314,6 +314,63 @@
 						"to-do",
 						"goal",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Recreate A Goal For Upcoming Test",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Build Rest API\",\n\t\"description\" : \"Build a rest api for a to-do app that I can use as a microservice.\",\n\t\"owner\": \"Logan Connor\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/to-do/goal/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"to-do",
+						"goal",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete A Goal Without Children",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/to-do/goal/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"to-do",
+						"goal",
+						"6"
 					]
 				}
 			},
