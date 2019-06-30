@@ -87,7 +87,7 @@ public class GoalControllerTest {
      * @throws Exception
      */
     @Test
-    public void deleteGoalWithNoTasks() throws Exception {
+    public void deleteGoalWithNoTasksTest() throws Exception {
         MvcResult goalResult = this.createGoal();
         MockHttpServletResponse goalResponse = goalResult.getResponse();
         Integer goalId = this.retrieveUniqueId(goalResponse);
@@ -100,7 +100,7 @@ public class GoalControllerTest {
      * @throws Exception
      */
     @Test
-    public void deleteGoalWithTasks() throws Exception {
+    public void deleteGoalWithTasksTest() throws Exception {
         MvcResult goalResult = this.createGoal();
         MockHttpServletResponse goalResponse = goalResult.getResponse();
         Integer goalId = this.retrieveUniqueId(goalResponse);
