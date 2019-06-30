@@ -2,11 +2,9 @@ package com.loganconnor44.service;
 
 import com.loganconnor44.dao.IGoalDAO;
 import com.loganconnor44.entity.Goal;
-import com.loganconnor44.entity.Task;
 import com.loganconnor44.helpers.Convenience;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -14,6 +12,9 @@ public class GoalService implements IGoalService {
 
     @Autowired
     private IGoalDAO goalDAO;
+
+    @Autowired
+    private ITaskService taskService;
 
     /**
      * Adds the current goal to the database.
@@ -62,8 +63,7 @@ public class GoalService implements IGoalService {
         List<Integer> childrenTaskIds = goalDAO.getChildrenTasks(goalId);
         if (!Convenience.isListOfNulls(childrenTaskIds)) {
             for (Integer id : childrenTaskIds) {
-                TaskService taskService = new TaskService();
-                taskService.deleteTask(id);
+                this.taskService.deleteTask(id);
             }
         }
         goalDAO.deleteGoal(goalId);
