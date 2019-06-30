@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
@@ -39,10 +40,10 @@ public class GoalControllerTest {
     public MvcResult createGoal() throws Exception {
         String mockApplicationJson = String.format(
                 "{\n" +
-                "\t\"name\": \"Build Rest API %1f \",\n" +
-                "\t\"description\" : \"Build a rest api for a to-do app that I can use as a microservice.\",\n" +
-                "\t\"owner\": \"Logan Connor\"\n" +
-                "}",
+                        "\t\"name\": \"Build Rest API %1f \",\n" +
+                        "\t\"description\" : \"Build a rest api for a to-do app that I can use as a microservice.\",\n" +
+                        "\t\"owner\": \"Logan Connor\"\n" +
+                        "}",
                 keepNameUnique
         );
 
@@ -66,12 +67,17 @@ public class GoalControllerTest {
     }
 
     public Integer retrieveUniqueId(MockHttpServletResponse response) {
-        String goalId = CharMatcher.inRange('0','9').retainFrom(
+        String goalId = CharMatcher.inRange('0', '9').retainFrom(
                 response.getHeader("location")
         );
         return Integer.parseInt(goalId);
     }
 
+    /**
+     * Create and save a goal then verify the response status.
+     *
+     * @throws Exception
+     */
     @Test
     public void addGoalTest() throws Exception {
         MvcResult result = this.createGoal();
@@ -84,6 +90,11 @@ public class GoalControllerTest {
     }
 
     /**
+     * Create and save a goal.
+     * Retrieve the goal id.
+     * Delete goal.
+     * Verify expected response status.
+     *
      * @throws Exception
      */
     @Test
@@ -97,6 +108,13 @@ public class GoalControllerTest {
     }
 
     /**
+     * Create and save a goal.
+     * Retrieve the goal id.
+     * Create and save a task.
+     * Verify expected response status.
+     * Delete the goal with a task.
+     * Verify expected response status.
+     *
      * @throws Exception
      */
     @Test
@@ -107,12 +125,12 @@ public class GoalControllerTest {
 
         String mockApplicationJson = String.format(
                 "{\n" +
-                "\t\"name\" : \"Learn Spring\",\n" +
-                "\t\"description\" : \"Learn how to create a restful api using the Spring Boot framework.\",\n" +
-                "\t\"goal\" : {\n" +
-                "\t\t\"id\"  :\"%1d\"\n" +
-                "\t}\n" +
-                "}",
+                        "\t\"name\" : \"Learn Spring\",\n" +
+                        "\t\"description\" : \"Learn how to create a restful api using the Spring Boot framework.\",\n" +
+                        "\t\"goal\" : {\n" +
+                        "\t\t\"id\"  :\"%1d\"\n" +
+                        "\t}\n" +
+                        "}",
                 goalId
         );
         RequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -130,6 +148,15 @@ public class GoalControllerTest {
         assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
     }
 
+    /**
+     * Create and save a goal.
+     * Retrieve the goal id.
+     * Retrieve the goal via http get.
+     * Verify status code.
+     * Verify returned values.
+     *
+     * @throws Exception
+     */
     @Test
     public void retrieveGoalTest() throws Exception {
         MvcResult goalResult = this.createGoal();
@@ -153,7 +180,15 @@ public class GoalControllerTest {
     }
 
     /**
-     * Be aware that passing the enum Status.COMPLETED will not evaluate as the same as the json response status.
+     * Create and save a goal.
+     * Retrieve the goal id.
+     * Update the goal via http put.
+     * Verify expected status code.
+     * Retrieve the goal via http get.
+     * Verify expected updated values.
+     *
+     * Be aware that passing the enum Status.COMPLETED will not
+     * evaluate as the same as the json response status.
      *
      * @throws Exception
      */
