@@ -1,13 +1,14 @@
 package com.loganconnor44.integration.controller;
 
+import com.google.common.base.CharMatcher;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.*;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -20,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc(secure = false)
 public class GoalControllerTest {
 
@@ -28,13 +29,22 @@ public class GoalControllerTest {
     private MockMvc mockMvc;
 
     final private ResultMatcher httpOkay = MockMvcResultMatchers.status().isOk();
+    final private ResultMatcher httpCreated = MockMvcResultMatchers.status().isCreated();
+
+    @LocalServerPort
+    int randomServerPort;
+
+    private Double keepNameUnique = Math.random();
 
     public MvcResult createGoal() throws Exception {
-        String mockApplicationJson = "{\n" +
-                "\t\"name\": \"Build Rest API\",\n" +
+        String mockApplicationJson = String.format(
+                "{\n" +
+                "\t\"name\": \"Build Rest API %1f \",\n" +
                 "\t\"description\" : \"Build a rest api for a to-do app that I can use as a microservice.\",\n" +
                 "\t\"owner\": \"Logan Connor\"\n" +
-                "}";
+                "}",
+                keepNameUnique
+        );
 
         //Create a post request with an accept header for application\json
         RequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -46,29 +56,89 @@ public class GoalControllerTest {
         return mockMvc.perform(requestBuilder).andReturn();
     }
 
+    public MvcResult deleteGoal(Integer goalId) throws Exception {
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .delete(String.format("/to-do/goal/%d", goalId))
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        return mockMvc.perform(requestBuilder).andReturn();
+    }
+
+    public Integer retrieveUniqueId(MockHttpServletResponse response) {
+        String goalId = CharMatcher.inRange('0','9').retainFrom(
+                response.getHeader("location")
+        );
+        return Integer.parseInt(goalId);
+    }
+
     @Test
     public void addGoalTest() throws Exception {
-        MvcResult result = createGoal();
-
+        MvcResult result = this.createGoal();
         MockHttpServletResponse response = result.getResponse();
-
-        //Assert that the return status is CREATED
-        assertEquals(
-                HttpStatus.CREATED.value(),
+        //Verify request succeed
+        Assert.assertEquals(
+                201,
                 response.getStatus()
         );
+    }
 
-        assertEquals(
-                "http://localhost/goal/1",
-                response.getHeader(HttpHeaders.LOCATION)
+    /**
+     * @throws Exception
+     */
+    @Test
+    public void deleteGoalWithNoTasks() throws Exception {
+        MvcResult goalResult = this.createGoal();
+        MockHttpServletResponse goalResponse = goalResult.getResponse();
+        Integer goalId = this.retrieveUniqueId(goalResponse);
+        MvcResult result = this.deleteGoal(goalId);
+        MockHttpServletResponse response = result.getResponse();
+        assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
+    }
+
+    /**
+     * @throws Exception
+     */
+    @Test
+    public void deleteGoalWithTasks() throws Exception {
+        MvcResult goalResult = this.createGoal();
+        MockHttpServletResponse goalResponse = goalResult.getResponse();
+        Integer goalId = this.retrieveUniqueId(goalResponse);
+
+        String mockApplicationJson = String.format(
+                "{\n" +
+                "\t\"name\" : \"Learn Spring\",\n" +
+                "\t\"description\" : \"Learn how to create a restful api using the Spring Boot framework.\",\n" +
+                "\t\"goal\" : {\n" +
+                "\t\t\"id\"  :\"%1d\"\n" +
+                "\t}\n" +
+                "}",
+                goalId
         );
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .post("/to-do/task/")
+                .accept(MediaType.APPLICATION_JSON)
+                .content(mockApplicationJson)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        mockMvc.perform(requestBuilder)
+                .andExpect(this.httpCreated);
+
+        MvcResult result = this.deleteGoal(goalId);
+        MockHttpServletResponse response = result.getResponse();
+
+        assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
     }
 
     @Test
     public void retrieveGoalTest() throws Exception {
-        this.createGoal();
+        MvcResult goalResult = this.createGoal();
+        MockHttpServletResponse goalResponse = goalResult.getResponse();
+        Integer goalId = this.retrieveUniqueId(goalResponse);
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .get("/to-do/goal/1")
+                .get(
+                        String.format("/to-do/goal/%1d", goalId)
+                )
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 
@@ -78,7 +148,7 @@ public class GoalControllerTest {
                         jsonPath("$.owner").value("Logan Connor")
                 )
                 .andExpect(
-                        jsonPath("$.id").value(1)
+                        jsonPath("$.id").value(goalId)
                 );
     }
 
@@ -89,9 +159,13 @@ public class GoalControllerTest {
      */
     @Test
     public void updateGoalAsCompleteTest() throws Exception {
-        this.addGoalTest();
+        MvcResult goalResult = this.createGoal();
+        MockHttpServletResponse goalResponse = goalResult.getResponse();
+        Integer goalId = this.retrieveUniqueId(goalResponse);
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .put("/to-do/goal/1")
+                .put(
+                        String.format("/to-do/goal/%1d", goalId)
+                )
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 
@@ -99,31 +173,14 @@ public class GoalControllerTest {
                 .andExpect(this.httpOkay);
 
         RequestBuilder getRequestBuilder = MockMvcRequestBuilders
-                .get("/to-do/goal/1")
+                .get(
+                        String.format("/to-do/goal/%1d", goalId)
+                )
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
         mockMvc.perform(getRequestBuilder)
                 .andExpect(
                         jsonPath("$.status").value("COMPLETED")
                 );
-    }
-
-    /**
-     *
-     *
-     * @throws Exception
-     */
-    @Test
-    public void deleteGoalWithNoTasks() throws Exception {
-        this.createGoal();
-        RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .delete("/to-do/goal/1")
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON);
-
-        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-        MockHttpServletResponse response = result.getResponse();
-
-        assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
     }
 }
