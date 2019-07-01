@@ -1,5 +1,7 @@
 package com.loganconnor44.entity;
 
+import com.loganconnor44.helpers.Difficulty;
+import com.loganconnor44.helpers.Importance;
 import com.loganconnor44.helpers.Status;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -35,10 +37,28 @@ public class Goal {
     private String owner;
 
     /**
-     * The status of the current task.
+     * The status of the current goal.
      */
     @Enumerated(EnumType.STRING)
     private Status status = Status.ACTIVE;
+
+    /**
+     * The difficulty of the current goal.
+     */
+    @Enumerated(EnumType.STRING)
+    private Difficulty difficulty = Difficulty.NORMAL;
+
+    /**
+     * The importance of the current goal.
+     */
+    @Enumerated(EnumType.STRING)
+    private Importance importance = Importance.MEDIUM;
+
+    /**
+     * A time stamp of the deadline for this goal.
+     */
+    @Column(name = 'deadline')
+    private Instant deadline;
 
     /**
      * A time stamp of the last time this object was modified.
@@ -107,6 +127,30 @@ public class Goal {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Importance getImportance() {
+        return this.importance;
+    }
+
+    public void setImportance(Importance importance) {
+        this.importance = importance;
+    }
+
+    public Difficulty getDifficulty() {
+        return this.difficulty;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public Instant getDeadline() {
+        return this.deadline;
+    }
+
+    public void setDeadline(Instant deadline) {
+        this.deadline = deadline;
     }
 
     public Instant getLastModified() {

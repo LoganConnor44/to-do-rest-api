@@ -1,5 +1,7 @@
 package com.loganconnor44.entity;
 
+import com.loganconnor44.helpers.Difficulty;
+import com.loganconnor44.helpers.Importance;
 import com.loganconnor44.helpers.Status;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -65,10 +67,28 @@ public class Task {
     private Instant created;
 
     /**
+     * A time stamp of the deadline for this task.
+     */
+    @Column(name = 'deadline')
+    private Instant deadline;
+
+    /**
      * The status of the current task.
      */
     @Enumerated(EnumType.STRING)
     private Status status = Status.ACTIVE;
+
+    /**
+     * The difficulty of the current task.
+     */
+    @Enumerated(EnumType.STRING)
+    private Difficulty difficulty = Difficulty.NORMAL;
+
+    /**
+     * The importance of the current task.
+     */
+    @Enumerated(EnumType.STRING)
+    private Importance importance = Importance.MEDIUM;
 
     public Task() {
         this.lastModified = Instant.now();
@@ -139,6 +159,30 @@ public class Task {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Importance getImportance() {
+        return this.importance;
+    }
+
+    public void setImportance(Importance importance) {
+        this.importance = importance;
+    }
+
+    public Difficulty getDifficulty() {
+        return this.difficulty;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public Instant getDeadline() {
+        return this.deadline;
+    }
+
+    public void setDeadline(Instant deadline) {
+        this.deadline = deadline;
     }
 
     public Instant getLastModified() {
