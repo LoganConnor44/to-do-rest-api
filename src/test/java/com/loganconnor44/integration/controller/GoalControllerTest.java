@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc(secure = false)
-public class GoalAbstractControllerTest extends AbstractControllerTest {
+public class GoalControllerTest extends AbstractControllerTest {
 
     /**
      * Create and save a goal then verify the response status.
@@ -29,6 +29,7 @@ public class GoalAbstractControllerTest extends AbstractControllerTest {
     public void addGoalTest() throws Exception {
         MvcResult result = this.createGoal();
         MockHttpServletResponse response = result.getResponse();
+        this.retrieveUniqueIdFromHeader(response);
         //Verify request succeed
         Assert.assertEquals(
                 201,

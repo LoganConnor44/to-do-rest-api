@@ -53,6 +53,15 @@ abstract class AbstractControllerTest {
         return mockMvc.perform(requestBuilder).andReturn();
     }
 
+    protected MvcResult deleteTask(Integer taskId) throws Exception {
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .delete(String.format("/to-do/task/%d", taskId))
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        return mockMvc.perform(requestBuilder).andReturn();
+    }
+
     protected Integer retrieveUniqueIdFromHeader(MockHttpServletResponse response) {
         String id = CharMatcher.inRange('0', '9').retainFrom(
                 response.getHeader("location")

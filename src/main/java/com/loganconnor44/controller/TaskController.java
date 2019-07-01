@@ -1,5 +1,6 @@
 package com.loganconnor44.controller;
 
+import com.loganconnor44.entity.Goal;
 import com.loganconnor44.entity.Task;
 import com.loganconnor44.service.ITaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,21 @@ public class TaskController {
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path("/{id}").buildAndExpand(subTask.getId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+    }
+
+    /**
+     * Retrieves a task from the database.
+     * <p>
+     * The client passes the task id of the desired goal.
+     * Return to the user a 200 http status okay.
+     *
+     * @param taskId The desired task's id.
+     * @return ResponseEntity<Task>
+     */
+    @GetMapping("/{taskId}")
+    public ResponseEntity<Task> getTaskById(@PathVariable("taskId") Integer taskId) {
+        Task task = taskService.getTaskById(taskId);
+        return new ResponseEntity<Task>(task, HttpStatus.OK);
     }
 
     @PutMapping("/{taskId}")
