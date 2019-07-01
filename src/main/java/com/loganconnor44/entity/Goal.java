@@ -3,10 +3,8 @@ package com.loganconnor44.entity;
 import com.loganconnor44.helpers.Difficulty;
 import com.loganconnor44.helpers.Importance;
 import com.loganconnor44.helpers.Status;
-import org.apache.commons.lang3.builder.Diff;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import javax.persistence.*;
 
 @Entity
