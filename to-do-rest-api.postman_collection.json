@@ -37,6 +37,99 @@
 			"response": []
 		},
 		{
+			"name": "Create A Goal With Difficulty Defined",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Build Rest API2\",\n\t\"description\" : \"Build a rest api for a to-do app that I can use as a microservice.\",\n\t\"owner\": \"Logan Connor\",\n\t\"difficulty\": \"HARD\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/to-do/goal/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"to-do",
+						"goal",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create A Goal With Difficulty And Importance Defined",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Build Rest API3\",\n\t\"description\" : \"Build a rest api for a to-do app that I can use as a microservice.\",\n\t\"difficulty\": \"HARD\",\n\t\"owner\": \"Logan Connor\",\n\t\"importance\": \"LOW\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/to-do/goal/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"to-do",
+						"goal",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create A Goal With Importance Defined",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Build Rest API4\",\n\t\"description\" : \"Build a rest api for a to-do app that I can use as a microservice.\",\n\t\"owner\": \"Logan Connor\",\n\t\"importance\": \"LOW\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/to-do/goal/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"to-do",
+						"goal",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Retrieve A Goal",
 			"request": {
 				"method": "GET",
@@ -163,8 +256,12 @@
 						"value": "application/json"
 					}
 				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 1,\n\t\"name\": \"Build Rest API\",\n\t\"description\" : \"Build a rest api for a to-do app that I can use as a microservice.\",\n\t\"owner\": \"Logan Connor\",\n\t\"status\": \"COMPLETED\"\n}"
+				},
 				"url": {
-					"raw": "http://localhost:8080/to-do/goal/1",
+					"raw": "http://localhost:8080/to-do/goal",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -172,8 +269,7 @@
 					"port": "8080",
 					"path": [
 						"to-do",
-						"goal",
-						"1"
+						"goal"
 					]
 				}
 			},
@@ -191,7 +287,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/to-do/task/3",
+					"raw": "http://localhost:8080/to-do/task/5",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -200,7 +296,7 @@
 					"path": [
 						"to-do",
 						"task",
-						"3"
+						"5"
 					]
 				}
 			},
