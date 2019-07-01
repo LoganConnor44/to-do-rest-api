@@ -24,12 +24,12 @@ public class TaskControllerTest extends AbstractControllerTest {
     private MvcResult createTask(Integer taskId) throws Exception {
         String mockApplicationJson = String.format(
                 "{\n" +
-                "\t\"name\" : \"Learn Spring\",\n" +
-                "\t\"description\" : \"Learn how to create a restful api using the Spring Boot framework.\",\n" +
-                "\t\"goal\" : {\n" +
-                "\t\t\"id\"  :\"%1d\"\n" +
-                "\t}\n" +
-                "}",
+                        "\t\"name\" : \"Learn Spring\",\n" +
+                        "\t\"description\" : \"Learn how to create a restful api using the Spring Boot framework.\",\n" +
+                        "\t\"goal\" : {\n" +
+                        "\t\t\"id\"  :\"%1d\"\n" +
+                        "\t}\n" +
+                        "}",
                 taskId
         );
 
@@ -199,5 +199,4 @@ public class TaskControllerTest extends AbstractControllerTest {
 
         assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
     }
-
 }

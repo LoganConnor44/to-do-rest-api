@@ -1,7 +1,5 @@
 package com.loganconnor44.integration.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.loganconnor44.entity.Goal;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
