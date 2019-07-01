@@ -60,14 +60,19 @@ public class GoalDAO implements IGoalDAO {
     /**
      * Updates an existing goal by replacing its current value with the passed in goal.
      *
-     * @param newGoal The new goal data that will be saved.
+     * @param newValuesForExistingGoal The new goal data that will be saved.
      */
     @Override
-    public void updateGoal(Goal newGoal) {
-        Goal goal = getGoalById(newGoal.getId());
-        goal.setName(newGoal.getName());
-        goal.setDescription(newGoal.getDescription());
-        goal.setOwner(newGoal.getOwner());
+    public void updateGoal(Goal newValuesForExistingGoal) {
+        Goal goal = getGoalById(newValuesForExistingGoal.getId());
+        goal.setName(newValuesForExistingGoal.getName());
+        goal.setDescription(newValuesForExistingGoal.getDescription());
+        goal.setOwner(newValuesForExistingGoal.getOwner());
+        goal.setStatus(newValuesForExistingGoal.getStatus());
+        goal.setDifficulty(newValuesForExistingGoal.getDifficulty());
+        goal.setImportance(newValuesForExistingGoal.getImportance());
+        goal.setDeadline(newValuesForExistingGoal.getDeadline());
+        goal.setLastModified(Instant.now());
         entityManager.flush();
     }
 

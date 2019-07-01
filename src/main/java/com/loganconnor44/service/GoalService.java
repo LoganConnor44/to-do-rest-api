@@ -46,11 +46,11 @@ public class GoalService implements IGoalService {
     /**
      * Updates an existing goal.
      *
-     * @param goal The goal to be updated.
+     * @param newValuesForExistingGoal The goal to be updated.
      */
     @Override
-    public void updateGoal(Goal goal) {
-        goalDAO.updateGoal(goal);
+    public void updateGoal(Goal newValuesForExistingGoal) {
+        goalDAO.updateGoal(newValuesForExistingGoal);
     }
 
     /**

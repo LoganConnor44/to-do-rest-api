@@ -3,6 +3,8 @@ package com.loganconnor44.entity;
 import com.loganconnor44.helpers.Difficulty;
 import com.loganconnor44.helpers.Importance;
 import com.loganconnor44.helpers.Status;
+import org.apache.commons.lang3.builder.Diff;
+
 import java.time.Instant;
 import java.util.ArrayList;
 import javax.persistence.*;
@@ -57,7 +59,7 @@ public class Goal {
     /**
      * A time stamp of the deadline for this goal.
      */
-    @Column(name = 'deadline')
+    @Column(name = "deadline")
     private Instant deadline;
 
     /**
@@ -85,6 +87,50 @@ public class Goal {
         this.name = name;
         this.description = description;
         this.owner = owner;
+        this.lastModified = Instant.now();
+        this.created = Instant.now();
+    }
+
+    public Goal(
+            String name,
+            String description,
+            String owner,
+            Difficulty difficulty
+    ) {
+        this.name = name;
+        this.description = description;
+        this.owner = owner;
+        this.difficulty = difficulty;
+        this.lastModified = Instant.now();
+        this.created = Instant.now();
+    }
+
+    public Goal(
+            String name,
+            String description,
+            String owner,
+            Difficulty difficulty,
+            Importance importance
+    ) {
+        this.name = name;
+        this.description = description;
+        this.owner = owner;
+        this.difficulty = difficulty;
+        this.importance = importance;
+        this.lastModified = Instant.now();
+        this.created = Instant.now();
+    }
+
+    public Goal(
+            String name,
+            String description,
+            String owner,
+            Importance importance
+    ) {
+        this.name = name;
+        this.description = description;
+        this.owner = owner;
+        this.importance = importance;
         this.lastModified = Instant.now();
         this.created = Instant.now();
     }

@@ -69,7 +69,7 @@ public class Task {
     /**
      * A time stamp of the deadline for this task.
      */
-    @Column(name = 'deadline')
+    @Column(name = "deadline")
     private Instant deadline;
 
     /**

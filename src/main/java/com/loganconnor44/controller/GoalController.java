@@ -57,16 +57,15 @@ public class GoalController {
     /**
      * Updates an existing goal's status as completed.
      * <p>
-     * The client passes the goal id of the desired goal.
+     * The client passes the existing goal with updated values.
      * The goal is updated via a defined status enum.
      * Return to the user a 200 http status okay.
      *
-     * @param goalId The desired goal's id.
      * @return ResponseEntity<Goal>
      */
-    @PutMapping("/{goalId}")
-    public ResponseEntity<Goal> markGoalAsComplete(@PathVariable("goalId") Integer goalId) {
-        goalService.markGoalAsComplete(goalId);
+    @PutMapping
+    public ResponseEntity<Goal> updateGoal(@RequestBody Goal newValuesForExistingGoal) {
+        goalService.updateGoal(newValuesForExistingGoal);
         return new ResponseEntity<Goal>(HttpStatus.OK);
     }
 

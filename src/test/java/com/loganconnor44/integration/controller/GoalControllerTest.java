@@ -1,5 +1,7 @@
 package com.loganconnor44.integration.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.loganconnor44.entity.Goal;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -142,18 +144,11 @@ public class GoalControllerTest extends AbstractControllerTest {
      */
     @Test
     public void updateGoalAsCompleteTest() throws Exception {
+
+
         MvcResult goalResult = this.createGoal();
         MockHttpServletResponse goalResponse = goalResult.getResponse();
         Integer goalId = this.retrieveUniqueIdFromHeader(goalResponse);
-        RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .put(
-                        String.format("/to-do/goal/%1d", goalId)
-                )
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON);
-
-        mockMvc.perform(requestBuilder)
-                .andExpect(this.httpOkay);
 
         RequestBuilder getRequestBuilder = MockMvcRequestBuilders
                 .get(
@@ -161,9 +156,24 @@ public class GoalControllerTest extends AbstractControllerTest {
                 )
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
-        mockMvc.perform(getRequestBuilder)
-                .andExpect(
-                        jsonPath("$.status").value("COMPLETED")
-                );
+
+        MvcResult getResult = this.mockMvc.perform(getRequestBuilder)
+                .andExpect(this.httpOkay)
+                .andReturn();
+        String goalJson = getResult.getResponse().getContentAsString();
+
+        RequestBuilder putRequestBuilder = MockMvcRequestBuilders
+                .put(
+                        String.format("/to-do/goal", goalId)
+                )
+                .accept(MediaType.APPLICATION_JSON)
+                .content(goalJson.replaceAll("ACTIVE", "COMPLETED"))
+                .contentType(MediaType.APPLICATION_JSON);
+
+        this.mockMvc.perform(putRequestBuilder)
+                .andExpect(this.httpOkay);
+
+        this.mockMvc.perform(getRequestBuilder)
+                .andExpect(this.httpOkay);
     }
 }
