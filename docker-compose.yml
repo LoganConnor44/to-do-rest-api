@@ -1,0 +1,42 @@
+version: '3.0'
+
+services:
+
+  # Name of service database
+  to-do-rest-api-db:
+    container_name: to-do-rest-api-db
+    image: mysql:8.0.12
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: TO_DO_REST_API
+      MYSQL_USER: springuser
+      MYSQL_PASSWORD: 8675309
+    volumes:
+      # Host/Path/To/Data : Container/Path/To/Data
+      - /c/work-space/container-volume/to-do-rest-api-mysql/data:/var/lib/mysql
+    ports:
+      - "3309:3306"
+    networks:
+      - backend
+
+  # Name of application service
+  to-do-rest-api:
+    container_name: to-do-rest-api
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - to-do-rest-api-db
+    restart: on-failure
+    # This is apparently needed even though it is defined in application.properties also
+    # Unsure if one is ignored or it just needs to be duplicated
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://to-do-rest-api-db/TO_DO_REST_API
+      SPRING_DATASOURCE_USERNAME: springuser
+      SPRING_DATASOURCE_PASSWORD: 8675309
+    networks:
+      - backend
+
+networks:
+  backend:

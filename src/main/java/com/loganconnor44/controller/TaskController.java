@@ -19,7 +19,7 @@ public class TaskController {
 
     @PostMapping()
     public ResponseEntity<Void> addTask(@RequestBody Task task, UriComponentsBuilder builder) {
-        boolean flag = taskService.addTask(task);
+        boolean flag = this.taskService.addTask(task);
         if (!flag) {
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }

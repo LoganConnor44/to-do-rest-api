@@ -4,6 +4,7 @@ import com.loganconnor44.entity.Goal;
 import com.loganconnor44.helpers.Convenience;
 import com.loganconnor44.helpers.Status;
 import org.springframework.stereotype.Repository;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;

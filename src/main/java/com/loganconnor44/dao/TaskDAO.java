@@ -4,6 +4,7 @@ import com.loganconnor44.entity.Task;
 import com.loganconnor44.helpers.Status;
 import org.springframework.stereotype.Repository;
 import com.loganconnor44.helpers.Convenience;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
@@ -13,6 +14,7 @@ import java.util.List;
 @Transactional
 @Repository
 public class TaskDAO implements ITaskDAO {
+
     @PersistenceContext
     private EntityManager entityManager;
 
