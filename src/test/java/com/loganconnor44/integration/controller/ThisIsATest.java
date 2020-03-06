@@ -1,12 +1,19 @@
 //package com.loganconnor44.integration.controller;
 //
 //import com.google.common.base.CharMatcher;
-//import com.loganconnor44.integration.ToDoRestAPIApplicationTests;
+//import com.loganconnor44.controller.GoalController;
+//import com.loganconnor44.controller.TaskController;
+//import com.loganconnor44.dao.GoalDAO;
+//import com.loganconnor44.dao.TaskDAO;
+//import com.loganconnor44.service.GoalService;
+//import com.loganconnor44.service.TaskService;
+//import org.junit.Test;
 //import org.junit.runner.RunWith;
+//import org.mockito.Mock;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-//import org.springframework.boot.test.context.SpringBootTest;
-//import org.springframework.boot.web.server.LocalServerPort;
+//import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+//import org.springframework.boot.test.mock.mockito.MockBean;
 //import org.springframework.http.MediaType;
 //import org.springframework.mock.web.MockHttpServletResponse;
 //import org.springframework.test.context.TestPropertySource;
@@ -14,31 +21,40 @@
 //import org.springframework.test.web.servlet.MockMvc;
 //import org.springframework.test.web.servlet.MvcResult;
 //import org.springframework.test.web.servlet.RequestBuilder;
-//import org.springframework.test.web.servlet.ResultMatcher;
 //import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-//import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+//
+//import static org.assertj.core.api.Assertions.assertThat;
 //
 //@RunWith(SpringRunner.class)
-//@SpringBootTest(
-//        webEnvironment = SpringBootTest.WebEnvironment.MOCK,
-//        classes = AbstractControllerTest.class
-//)
+//@WebMvcTest
 //@AutoConfigureMockMvc
 //@TestPropertySource(
-//        locations = "classpath:application-integration-test.properties"
+//    locations = "classpath:application-integration-test.properties"
 //)
-//abstract class AbstractControllerTest {
+//abstract class ThisIsATest {
+//
+//    @MockBean
+//    private GoalDAO goalDAO;
+//
+//    @MockBean
+//    private TaskDAO taskDAO;
+//
+//    @MockBean
+//    private GoalService goalService;
+//
+//    @MockBean
+//    private TaskService taskService;
 //
 //    @Autowired
-//    protected MockMvc mockMvc;
+//    GoalController goalController;
 //
-//    final protected ResultMatcher httpOkay = MockMvcResultMatchers.status().isOk();
-//    final protected ResultMatcher httpCreated = MockMvcResultMatchers.status().isCreated();
+//    @Autowired
+//    TaskController taskController;
 //
-//    @LocalServerPort
-//    protected int randomServerPort;
+//    @Autowired
+//    private MockMvc mockMvc;
 //
-//    protected Double keepNameUnique = Math.random();
+//    private Double keepNameUnique = Math.random();
 //
 //    protected MvcResult createGoal() throws Exception {
 //        String mockApplicationJson = String.format(
@@ -55,24 +71,6 @@
 //                .post("/to-do/goal/")
 //                .accept(MediaType.APPLICATION_JSON)
 //                .content(mockApplicationJson)
-//                .contentType(MediaType.APPLICATION_JSON);
-//
-//        return mockMvc.perform(requestBuilder).andReturn();
-//    }
-//
-//    protected MvcResult deleteGoal(Integer goalId) throws Exception {
-//        RequestBuilder requestBuilder = MockMvcRequestBuilders
-//                .delete(String.format("/to-do/goal/%d", goalId))
-//                .accept(MediaType.APPLICATION_JSON)
-//                .contentType(MediaType.APPLICATION_JSON);
-//
-//        return mockMvc.perform(requestBuilder).andReturn();
-//    }
-//
-//    protected MvcResult deleteTask(Integer taskId) throws Exception {
-//        RequestBuilder requestBuilder = MockMvcRequestBuilders
-//                .delete(String.format("/to-do/task/%d", taskId))
-//                .accept(MediaType.APPLICATION_JSON)
 //                .contentType(MediaType.APPLICATION_JSON);
 //
 //        return mockMvc.perform(requestBuilder).andReturn();

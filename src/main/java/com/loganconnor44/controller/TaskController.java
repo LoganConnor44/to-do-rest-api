@@ -28,6 +28,15 @@ public class TaskController {
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
 
+    @PutMapping()
+    public ResponseEntity<Void> updateTask(@RequestBody Task task) {
+        boolean flag = this.taskService.updateTask(task);
+        if (!flag) {
+            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
     @PostMapping("/{parent-task-id}/create-sub-task")
     public ResponseEntity<Void> addSubTaskToTask(
             @PathVariable("parent-task-id") Integer parentTaskId,
@@ -60,11 +69,7 @@ public class TaskController {
         return new ResponseEntity<Task>(task, HttpStatus.OK);
     }
 
-    @PutMapping("/{taskId}")
-    public ResponseEntity<Task> markTaskAsComplete(@PathVariable("taskId") Integer taskId) {
-        taskService.markTaskAsComplete(taskId);
-        return new ResponseEntity<Task>(HttpStatus.OK);
-    }
+
 
     @DeleteMapping("/{taskId}")
     public ResponseEntity<Void> deleteTask(@PathVariable("taskId") Integer taskId) {

@@ -7,7 +7,7 @@ public interface ITaskService {
 
     Task getTaskById(int taskId);
 
-    void updateTask(Task task);
+    boolean updateTask(Task task);
 
     void deleteTask(int taskId);
 

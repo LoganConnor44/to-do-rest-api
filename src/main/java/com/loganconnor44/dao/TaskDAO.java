@@ -60,9 +60,38 @@ public class TaskDAO implements ITaskDAO {
     @Override
     public void updateTask(Task newTask) {
         Task task = getTaskById(newTask.getId());
-        task.setName(newTask.getName());
-        task.setDescription(newTask.getDescription());
-        task.setParentTask(newTask.getParentTask());
+
+        if (newTask.getName() != null) {
+            task.setName(newTask.getName());
+        }
+        if (newTask.getDescription() != null) {
+            task.setDescription(newTask.getDescription());
+        }
+        if (newTask.getParentTask() != null) {
+            task.setParentTask(newTask.getParentTask());
+        }
+        if (newTask.getCreated() != null) {
+            task.setCreated(newTask.getCreated());
+        }
+        if (newTask.getDeadline() != null) {
+            task.setDeadline(newTask.getDeadline());
+        }
+        if (newTask.getGoal() != null) {
+            task.setGoal(newTask.getGoal());
+        }
+        if (newTask.getImportance() != null) {
+            task.setImportance(newTask.getImportance());
+        }
+        if (newTask.getStatus() != null) {
+            task.setStatus(newTask.getStatus());
+        }
+        if (newTask.getImportance() != null) {
+            task.setImportance(newTask.getImportance());
+        }
+        if (newTask.getLastModified() != null) {
+            task.setLastModified(newTask.getLastModified());
+        }
+
         entityManager.flush();
     }
 

@@ -40,8 +40,9 @@ public class TaskService implements ITaskService {
      * @param task The task to be updated.
      */
     @Override
-    public void updateTask(Task task) {
+    public synchronized boolean updateTask(Task task) {
         taskDAO.updateTask(task);
+        return true;
     }
 
     /**
