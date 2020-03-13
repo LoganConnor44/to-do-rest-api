@@ -1,14 +1,11 @@
-FROM openjdk:8-jdk-alpine as build
-WORKDIR /workspace/app
- 
-COPY mvnw .
-COPY .mvn .mvn
-COPY pom.xml .
-RUN ./mvnw dependency:go-offline
- 
-COPY src src
-RUN ./mvnw package -DskipTests
-RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
+#
+# Build stage
+#
+FROM maven:3.6.0-jdk-11-slim AS build
+COPY ./src ./workspace/app/src
+COPY ./pom.xml ./workspace/app/pom.xml
+RUN mvn -f ./workspace/app/pom.xml clean compile package -DskipTests
+RUN mkdir -p ./workspace/app/target/dependency && (cd ./workspace/app/target/dependency; jar -xf ../*.jar)
  
 FROM openjdk:8-jre-alpine
 VOLUME /tmp
