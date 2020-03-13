@@ -13,7 +13,7 @@ services:
       MYSQL_PASSWORD: 8675309
     volumes:
       # Host/Path/To/Data : Container/Path/To/Data
-      - /c/work-space/container-volume/to-do-rest-api-mysql/data:/var/lib/mysql
+      - ~/container-volume/to-do-rest-api-mysql/data:/var/lib/mysql
     ports:
       - "3309:3306"
     networks:

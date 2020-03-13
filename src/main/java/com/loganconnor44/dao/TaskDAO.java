@@ -1,18 +1,28 @@
 package com.loganconnor44.dao;
 
+import com.loganconnor44.dto.TaskDto;
 import com.loganconnor44.entity.Task;
 import com.loganconnor44.helpers.Status;
 import org.springframework.stereotype.Repository;
+
+import lombok.Data;
+
 import com.loganconnor44.helpers.Convenience;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.time.Instant;
 import java.util.List;
 
 @Transactional
 @Repository
+@Data
 public class TaskDAO implements ITaskDAO {
 
     @PersistenceContext
@@ -36,8 +46,8 @@ public class TaskDAO implements ITaskDAO {
      */
     @Override
     public void addSubTask(Integer parentTaskId, Task childSubTask) {
-        Task parentTask = getTaskById(parentTaskId);
-        childSubTask.setParentTask(parentTask);
+        //Task parentTask = getTaskById(parentTaskId);
+        //childSubTask.setParentTask(parentTask);
         entityManager.flush();
     }
 
@@ -52,6 +62,17 @@ public class TaskDAO implements ITaskDAO {
         return entityManager.find(Task.class, taskId);
     }
 
+    public List<Task> getTasksByOwner(String owner) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+
+        CriteriaQuery<Task> query = cb.createQuery(Task.class);
+        Root<Task> root = query.from(Task.class);
+        query.select(root).where(cb.equal(root.get("owner"), owner));
+        TypedQuery<Task> qry = entityManager.createQuery(query);
+
+        return qry.getResultList();
+    }
+
     /**
      * Updates an existing task by replacing its current value with the passed in task.
      *
@@ -61,23 +82,14 @@ public class TaskDAO implements ITaskDAO {
     public void updateTask(Task newTask) {
         Task task = getTaskById(newTask.getId());
 
+        if (newTask.getBrowserId() != null) {
+            task.setBrowserId(newTask.getBrowserId());
+        }
         if (newTask.getName() != null) {
             task.setName(newTask.getName());
         }
-        if (newTask.getDescription() != null) {
-            task.setDescription(newTask.getDescription());
-        }
-        if (newTask.getParentTask() != null) {
-            task.setParentTask(newTask.getParentTask());
-        }
         if (newTask.getCreated() != null) {
             task.setCreated(newTask.getCreated());
-        }
-        if (newTask.getDeadline() != null) {
-            task.setDeadline(newTask.getDeadline());
-        }
-        if (newTask.getGoal() != null) {
-            task.setGoal(newTask.getGoal());
         }
         if (newTask.getImportance() != null) {
             task.setImportance(newTask.getImportance());

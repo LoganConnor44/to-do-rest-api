@@ -1,9 +1,12 @@
 package com.loganconnor44.service;
 
 import com.loganconnor44.dao.ITaskDAO;
+import com.loganconnor44.dto.TaskDto;
 import com.loganconnor44.entity.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class TaskService implements ITaskService {
@@ -32,6 +35,10 @@ public class TaskService implements ITaskService {
     @Override
     public Task getTaskById(int taskId) {
         return taskDAO.getTaskById(taskId);
+    }
+
+    public List<Task> getTasksByOwner(String owner) {
+        return taskDAO.getTasksByOwner(owner);
     }
 
     /**

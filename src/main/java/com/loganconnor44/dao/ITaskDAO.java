@@ -1,11 +1,16 @@
 package com.loganconnor44.dao;
 
+import com.loganconnor44.dto.TaskDto;
 import com.loganconnor44.entity.Task;
+
+import java.util.List;
 
 public interface ITaskDAO {
     void addTask(Task task);
 
     Task getTaskById(int taskId);
+
+    List<Task> getTasksByOwner(String owner);
 
     void updateTask(Task task);
 
