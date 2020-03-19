@@ -3,7 +3,10 @@ package com.loganconnor44.entity;
 import com.loganconnor44.helpers.Difficulty;
 import com.loganconnor44.helpers.Importance;
 import com.loganconnor44.helpers.Status;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Setter;
+
 import java.time.Instant;
 import javax.persistence.*;
 
@@ -62,17 +65,19 @@ public class Task {
      * A time stamp of the last time this object was modified.
      */
     @Column(name = "last_modified", nullable = false)
+    @Setter(AccessLevel.NONE)
     private Instant lastModified;
 
     /**
      * The time stamp of the creation of this object.
      */
     @Column(name = "created", nullable = false)
+    @Setter(AccessLevel.NONE)
     private Instant created;
 
     public Task() {
-        this.lastModified = Instant.now();
-        this.created = Instant.now();
+        //this.lastModified = Instant.now();
+        //this.created = Instant.now();
     }
 
     public Task(
@@ -87,5 +92,23 @@ public class Task {
         this.status = status;
         this.lastModified = Instant.now();
         this.created = Instant.now();
+    }
+
+    public void setLastModified(Object date) {
+        if (date instanceof Long) {
+            this.lastModified = Instant.ofEpochSecond( (Long) date );
+        }
+        if (date instanceof Instant) {
+            this.lastModified = (Instant) date;
+        }
+    }
+
+    public void setCreated(Object date) {
+        if (date instanceof Long) {
+            this.created = Instant.ofEpochSecond( (Long) date );
+        }
+        if (date instanceof Instant) {
+            this.created = (Instant) date;
+        }
     }
 }

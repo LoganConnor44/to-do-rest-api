@@ -18,7 +18,4 @@ public class TaskDto {
     private Long lastModified;
     private Difficulty difficulty;
     private Importance importance;
-
-    public TaskDto() {
-    }
 }

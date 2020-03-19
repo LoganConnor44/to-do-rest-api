@@ -12,6 +12,8 @@ public interface ITaskDAO {
 
     List<Task> getTasksByOwner(String owner);
 
+    Long getCountOfTaskByOwner(String owner);
+
     void updateTask(Task task);
 
     void deleteTask(int taskId);

@@ -25,7 +25,8 @@ public class TaskController {
     private ITaskService taskService;
 
     @PostMapping()
-    public ResponseEntity<Void> addTask(@RequestBody Task task, UriComponentsBuilder builder) {
+    public ResponseEntity<Void> addTask(@RequestBody TaskDto taskDto, UriComponentsBuilder builder) {
+        Task task = this.convertToEntity(taskDto);
         boolean flag = this.taskService.addTask(task);
         if (!flag) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
@@ -83,7 +84,11 @@ public class TaskController {
         return new ResponseEntity<>(task, HttpStatus.OK);
     }
 
-
+    @GetMapping("total-count-for/{owner}")
+    public ResponseEntity<Long> getCountOfTasksById(@PathVariable("owner") String owner) {
+        Long taskCount = taskService.getCountOfTasksByOwner(owner);
+        return new ResponseEntity<>(taskCount, HttpStatus.OK);
+    }
 
     @DeleteMapping("/{taskId}")
     public ResponseEntity<Void> deleteTask(@PathVariable("taskId") Integer taskId) {
@@ -96,15 +101,17 @@ public class TaskController {
         modelMapper.addMappings(new PropertyMap<TaskDto, Task>() {
             @Override
             protected void configure() {
-                map().setId(source.getRemoteId());
-                map().setBrowserId(source.getId());
-                map().setCreated(Instant.ofEpochMilli(source.getCreated()));
-                map().setLastModified(Instant.ofEpochMilli(source.getLastModified()));
-                map().setDifficulty(source.getDifficulty());
-                map().setImportance(source.getImportance());
-                map().setStatus(source.getStatus());
-                map().setOwner(source.getOwner());
-                map().setName(source.getName());
+                if (source.getRemoteId() != null) {
+                    map(source.getRemoteId()).setId(null);
+                }
+                map(source.getId()).setBrowserId(null);
+                map(source.getCreated()).setCreated(null);
+                map(source.getLastModified()).setLastModified(null);
+                map(source.getDifficulty()).setDifficulty(null);
+                map(source.getImportance()).setImportance(null);
+                map(source.getStatus()).setStatus(null);
+                map(source.getOwner()).setOwner(null);
+                map(source.getName()).setName(null);
                 map().setDeadline(null);
             }
         });

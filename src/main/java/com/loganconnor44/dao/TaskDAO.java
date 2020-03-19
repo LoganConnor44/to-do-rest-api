@@ -73,6 +73,13 @@ public class TaskDAO implements ITaskDAO {
         return qry.getResultList();
     }
 
+    public Long getCountOfTaskByOwner(String owner) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+        cq.select(cb.count(cq.from(Task.class)));
+        return entityManager.createQuery(cq).getSingleResult();
+    }
+
     /**
      * Updates an existing task by replacing its current value with the passed in task.
      *

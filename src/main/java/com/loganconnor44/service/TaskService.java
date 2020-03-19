@@ -41,6 +41,10 @@ public class TaskService implements ITaskService {
         return taskDAO.getTasksByOwner(owner);
     }
 
+    public Long getCountOfTasksByOwner(String owner) {
+        return taskDAO.getCountOfTaskByOwner(owner);
+    }
+
     /**
      * Updates an existing task.
      *

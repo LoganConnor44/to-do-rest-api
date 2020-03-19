@@ -19,4 +19,7 @@ public interface ITaskService {
     void addSubTask(Integer parentTaskId, Task childSubTask);
 
     void markTaskAsComplete(Integer taskId);
+
+    Long getCountOfTasksByOwner(String owner);
 }
+
