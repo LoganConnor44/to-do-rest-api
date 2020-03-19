@@ -1,7 +1,9 @@
 package com.loganconnor44.service;
 
+import com.loganconnor44.dao.IDatabaseUpdateDAO;
 import com.loganconnor44.dao.ITaskDAO;
 import com.loganconnor44.dto.TaskDto;
+import com.loganconnor44.entity.DatabaseUpdate;
 import com.loganconnor44.entity.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,8 @@ public class TaskService implements ITaskService {
 
     @Autowired
     private ITaskDAO taskDAO;
+    @Autowired
+    private DatabaseUpdateService databaseUpdateService;
 
     /**
      * Adds the current task to the database.
@@ -23,6 +27,8 @@ public class TaskService implements ITaskService {
     @Override
     public synchronized boolean addTask(Task task) {
         taskDAO.addTask(task);
+        DatabaseUpdate update = new DatabaseUpdate(task.getId(), task.getBrowserId(), task.getOwner());
+        databaseUpdateService.addDatabaseUpdate(update);
         return true;
     }
 

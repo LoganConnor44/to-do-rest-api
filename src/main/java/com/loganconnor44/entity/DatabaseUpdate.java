@@ -1,8 +1,6 @@
 package com.loganconnor44.entity;
 
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -25,15 +23,29 @@ public class DatabaseUpdate {
     @Column(name = "browser_id")
     private Integer browserId;
 
-    /**
-     * A time stamp of the last time this object was modified.
-     */
-    @Column(name = "last_modified", nullable = false)
-    private Instant lastModified;
+    @Column(name = "owner")
+    private String owner;
 
     /**
      * The time stamp of the creation of this object.
      */
     @Column(name = "created", nullable = false)
     private Instant created;
+
+    public DatabaseUpdate() {}
+
+    public DatabaseUpdate(Integer remoteId, Integer browserId, String owner) {
+        this.remoteId = remoteId;
+        this.browserId = browserId;
+        this.owner = owner;
+        this.created = Instant.now();
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

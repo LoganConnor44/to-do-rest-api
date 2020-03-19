@@ -1,8 +1,10 @@
 package com.loganconnor44.dao;
 
 import com.loganconnor44.dto.TaskDto;
+import com.loganconnor44.entity.DatabaseUpdate;
 import com.loganconnor44.entity.Task;
 import com.loganconnor44.helpers.Status;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import lombok.Data;
@@ -14,7 +16,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.time.Instant;
