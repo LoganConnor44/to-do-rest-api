@@ -4,11 +4,13 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.UUID;
 
 @Entity
 @Table(name = "database_updates")
 @Data
 public class DatabaseUpdate {
+    public static String CREATED = "created";
     /**
      * A unique identifier for a task.
      */
@@ -21,7 +23,7 @@ public class DatabaseUpdate {
     private Integer remoteId;
 
     @Column(name = "browser_id")
-    private Integer browserId;
+    private String browserId;
 
     @Column(name = "owner")
     private String owner;
@@ -34,7 +36,7 @@ public class DatabaseUpdate {
 
     public DatabaseUpdate() {}
 
-    public DatabaseUpdate(Integer remoteId, Integer browserId, String owner) {
+    public DatabaseUpdate(Integer remoteId, String browserId, String owner) {
         this.remoteId = remoteId;
         this.browserId = browserId;
         this.owner = owner;

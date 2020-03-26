@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.Setter;
 
 import java.time.Instant;
+import java.util.UUID;
 import javax.persistence.*;
 
 @Entity
@@ -23,7 +24,7 @@ public class Task {
     private Integer id;
 
     @Column(name = "browser_id")
-    private Integer browserId;
+    private String browserId;
 
     /**
      * The name of the task.

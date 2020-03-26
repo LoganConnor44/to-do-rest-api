@@ -4,6 +4,7 @@ import com.loganconnor44.dto.TaskDto;
 import com.loganconnor44.entity.Task;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface ITaskDAO {
     void addTask(Task task);

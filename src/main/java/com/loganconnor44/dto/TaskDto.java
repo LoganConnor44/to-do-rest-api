@@ -9,7 +9,7 @@ import java.time.Instant;
 @Data
 public class TaskDto {
 
-    private Integer id;
+    private String id;
     private Integer remoteId;
     private String name;
     private String owner;

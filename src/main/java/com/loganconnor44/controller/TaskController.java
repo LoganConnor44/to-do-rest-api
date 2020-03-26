@@ -46,22 +46,22 @@ public class TaskController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/{parent-task-id}/create-sub-task")
-    public ResponseEntity<Void> addSubTaskToTask(
-            @PathVariable("parent-task-id") Integer parentTaskId,
-            @RequestBody Task subTask,
-            UriComponentsBuilder builder
-    ) {
-        boolean flag = taskService.addTask(subTask);
-        if (!flag) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
-        taskService.addSubTask(parentTaskId, subTask);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("/{id}").buildAndExpand(subTask.getId()).toUri());
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
-    }
+//    @PostMapping("/{parent-task-id}/create-sub-task")
+//    public ResponseEntity<Void> addSubTaskToTask(
+//            @PathVariable("parent-task-id") Integer parentTaskId,
+//            @RequestBody Task subTask,
+//            UriComponentsBuilder builder
+//    ) {
+//        boolean flag = taskService.addTask(subTask);
+//        if (!flag) {
+//            return new ResponseEntity<>(HttpStatus.CONFLICT);
+//        }
+//        taskService.addSubTask(parentTaskId, subTask);
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setLocation(builder.path("/{id}").buildAndExpand(subTask.getId()).toUri());
+//        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+//    }
 
     /**
      * Retrieves a task from the database.
