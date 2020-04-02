@@ -135,21 +135,6 @@ public class TaskDAO implements ITaskDAO {
      */
     @Override
     public void deleteTask(int taskId) {
-        String jpql = "SELECT SUB.PARENT_TASK_FK " +
-                "FROM TASKS TA " +
-                "LEFT OUTER JOIN TASKS_SUBTASKS SUB " +
-                "ON TA.TASK_ID = SUB.CHILD_SUBTASK_FK " +
-                "WHERE TA.TASK_ID = :taskId";
-
-        @SuppressWarnings("unchecked")
-        List<Integer> parentIds = (List<Integer>) entityManager.createNativeQuery(jpql)
-                .setParameter("taskId", taskId)
-                .getResultList();
-        if (!Convenience.isListOfNulls(parentIds)) {
-            for (Integer id : parentIds) {
-                entityManager.remove(getTaskById(id));
-            }
-        }
         entityManager.remove(getTaskById(taskId));
     }
 }

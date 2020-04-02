@@ -3,8 +3,11 @@ package com.loganconnor44.controller;
 import com.loganconnor44.dto.TaskDto;
 import com.loganconnor44.entity.Goal;
 import com.loganconnor44.entity.Task;
+import com.loganconnor44.helpers.Difficulty;
 import com.loganconnor44.service.ITaskService;
+import org.modelmapper.Condition;
 import org.modelmapper.PropertyMap;
+import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -98,23 +101,22 @@ public class TaskController {
 
     private Task convertToEntity(TaskDto taskDto) {
         ModelMapper modelMapper = new ModelMapper();
-        modelMapper.addMappings(new PropertyMap<TaskDto, Task>() {
+        PropertyMap<TaskDto, Task> myPropertyMap = new PropertyMap<TaskDto, Task>() {
             @Override
             protected void configure() {
-                if (source.getRemoteId() != null) {
-                    map(source.getRemoteId()).setId(null);
-                }
+                map(source.getRemoteId()).setId(null);
                 map(source.getId()).setBrowserId(null);
                 map(source.getCreated()).setCreated(null);
                 map(source.getLastModified()).setLastModified(null);
+                map(source.getDeadline()).setDeadline(null);
                 map(source.getDifficulty()).setDifficulty(null);
                 map(source.getImportance()).setImportance(null);
                 map(source.getStatus()).setStatus(null);
                 map(source.getOwner()).setOwner(null);
                 map(source.getName()).setName(null);
-                map().setDeadline(null);
             }
-        });
+        };
+        modelMapper.addMappings(myPropertyMap);
         return modelMapper.map(taskDto, Task.class);
     }
 }
