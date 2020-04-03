@@ -13,7 +13,7 @@ services:
       MYSQL_PASSWORD: 8675309
     volumes:
       # Host/Path/To/Data : Container/Path/To/Data
-      - ~/container-volume/to-do-rest-api-mysql/data:/var/lib/mysql
+      - docker-compose-mysql-data-volume:/var/lib/mysql
     ports:
       - "3309:3306"
     networks:
@@ -38,5 +38,7 @@ services:
     networks:
       - backend
 
+volumes: 
+  docker-compose-mysql-data-volume:
 networks:
   backend:
